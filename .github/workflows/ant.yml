@@ -15,15 +15,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      name: Check out code
-    
-    - uses: mr-smithers-excellent/docker-build-push@v6
-      name: Build & push Docker image
+    - uses: actions/checkout@v4
+    - name: Set up JDK 19
+      uses: actions/setup-java@v3
       with:
-        image: repo/image
-        tags: v1, latest
-        registry: registry-url.io
-        dockerfile: Dockerfile.ci
+        java-version: '19'
+        distribution: 'temurin'
+    - name: Docker Build & Push Action
+      uses: mr-smithers-excellent/docker-build-push@v6.4
+      with:
+        image: bia/java_sem_maven
+        tags: 1.0
+        registry: docker.io
+        dockerfile: dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}    
+        password: ${{ secrets.DOCKER_PASSWORD }}
