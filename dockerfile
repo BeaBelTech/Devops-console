@@ -1,4 +1,4 @@
 FROM openjdk:latest
-WORKDIR: salaf
+WORKDIR salaf
 COPY . .
 CMD ["java", "src/Main.java"]
